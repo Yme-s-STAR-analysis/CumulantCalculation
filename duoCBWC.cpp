@@ -8,7 +8,6 @@
 #include "TH1D.h"
 #include "TTree.h"
 #include "TGraphErrors.h"
-#include "ECorr.h"
 
 #include "NpartLoader.h"
 #include "CentDefinition.h"
@@ -28,32 +27,8 @@ int main(int argc, char** argv){
         std::cout << " - Reweight parameter name: " << argv[3] << std::endl;
     }
 
-    // No CBWC
-    std::cout << "[LOG] Now calculting No-CBWC results.\n";
     const int MaxMult = 1000;
     const int LowEventCut = 10; // to avoid error caused by low event number
-
-    std::cout << "[LOG] Initializing cumulant calculating utils.\n";
-    ECorr* ecp = new ECorr("Pro", MaxMult, LowEventCut); 
-    ECorr* eca = new ECorr("Pbar", MaxMult, LowEventCut); 
-    ECorr* ecn = new ECorr("Netp", MaxMult, LowEventCut); 
-    ecp->Init();
-    ecp->ReadTerms(Form("%s.root", argv[1]));
-    ecp->Calculate();
-    ecp->Update(Form("cum.raw.%s.root", argv[1]));
-    std::cout << "[LOG] Proton done.\n";
-    eca->Init();
-    eca->ReadTerms(Form("%s.root", argv[1]));
-    eca->Calculate();
-    eca->Update(Form("cum.raw.%s.root", argv[1]));
-    std::cout << "[LOG] Antiproton done.\n";
-    ecn->Init();
-    ecn->ReadTerms(Form("%s.root", argv[1]));
-    ecn->Calculate();
-    ecn->Update(Form("cum.raw.%s.root", argv[1]));
-    std::cout << "[LOG] Net-proton done.\n";
-
-    std::cout << "[LOG] No-CBWC results done, please check " << Form("cum.raw.%s.root", argv[1]) << ".\n";
     std::cout << "[LOG] Reading non-cbwc cumulant file...\n";
     const int nCent = 9;
     TFile* tfin = new TFile(Form("cum.raw.%s.root", argv[1]));
