@@ -1,3 +1,6 @@
+#ifndef __NPARTLOADER__
+#define __NPARTLOADER__
+
 #include <fstream>
 #include <string>
 #include <vector>
@@ -11,21 +14,12 @@ class NpartLoader{
 
     public:
         NpartLoader(){
-            std::ifstream fin;
-            fin.open("Npart.txt");
-            std::string str;
-            int i = 0;
-            while(std::getline(fin, str)){
-                edge[i] = std::atoi(str.c_str());
-                std::cout << i << " - " << edge[i] << std::endl;
-                i += 1;
-                if (i > nCent){
-                    std::cout << "[Warning] In CentDefinition class, the target centrality edge is out of range " << i << " of " << nCent << ".\n";
-                }
-            }
-            fin.close();
+            for (int i=0; i<nCent; i++) { edge[i] = 0; }
         }
         ~NpartLoader(){}
 
+        void Init();
         int* GetArray() { return edge; }
 };
+
+#endif
