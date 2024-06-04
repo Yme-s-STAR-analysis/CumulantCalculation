@@ -1,11 +1,10 @@
 all: runCumulant
 
 runCumulant: ECorr.o Cumulant.cpp ReweightTool.cxx NpartLoader.cxx
-	g++ -std=c++17 $^ -o $@ `root-config --libs --cflags`
+	g++ $^ -o $@ `root-config --libs --cflags` -std=c++11
 
-duoCBWC: duoCBWC.cpp ReweightTool.cxx 
-	# g++ -std=c++11 $^ -o $@ `root-config --libs --cflags`
-	@echo "Currently under construction, use runCumulant instead"
+duoCBWC: duoCBWC.cpp ReweightTool.cxx  NpartLoader.cxx
+	g++ $^ -o $@ `root-config --libs --cflags` -std=c++11 
 
 ECorr.o: ECorr.cpp
-	g++ -c $^ `root-config --libs --cflags` -std=c++17
+	g++ -c $^ `root-config --libs --cflags` -std=c++11
