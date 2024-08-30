@@ -10,8 +10,7 @@
 #include "TGraphErrors.h"
 #include "ECorr.h"
 
-#include "NpartLoader.h"
-#include "CentDefinition.h"
+#include "CentManager.h"
 #include "ReweightTool.h"
 
 int main(int argc, char** argv){
@@ -57,11 +56,9 @@ int main(int argc, char** argv){
     std::cout << "[LOG] Reading non-cbwc cumulant file...\n";
     const int nCent = 9;
     TFile* tfin = new TFile(Form("cum.raw.%s.root", argv[1]));
-    CentDefinition* cDef = new CentDefinition();
-    cDef->read_edge(argv[2]); 
-    NpartLoader* nDef = new NpartLoader();
-    nDef->Init();
-    int* nPart = nDef->GetArray();
+    CentManager* cDef = new CentManager();
+    cDef->Init(argv[2]); 
+    int* nPart = cDef->GetArray();
     Rew8Tool* rew8 = new Rew8Tool();
     rew8->ReadPars(argv[3], 0); // the index is designed for multi-reweight cases, so any integer is okay here
 
@@ -125,7 +122,7 @@ int main(int argc, char** argv){
             }
 
             // loop 1, initialize the arrays to carry values and errors
-            int nEvents = 0;
+            double nEvents = 0;
             for (int k=0; k<nCent; k++){ // k for centralities
                 vSum[i][k] = 0;
                 eSum[i][k] = 0;
@@ -136,14 +133,10 @@ int main(int argc, char** argv){
             for (int k=LowMultCut; k<=MaxMult; k++){ // here k for refmult3
                 // Note: 0 is the first bin, +1 is a must
                 nEvents = hEntries[i]->GetBinContent(k+1) * rew8->GetWeight(k+1);
-                if (nEvents < LowEventCut){
-                    continue;
-                }
+                if (nEvents < LowEventCut){ continue; }
 
-                int curCent = cDef->get_cent(k); // get current centrality
-                if (curCent < 0){
-                    continue; // avoid invalid centrality
-                }
+                int curCent = cDef->GetCent(k); // get current centrality
+                if (curCent < 0){ continue; } // avoid invalid centrality 
                 if (
                     (j < 7) || // C1 ~ C6 + ppb
                     (j >= 15 && j <= 20) // k1 ~ k6
