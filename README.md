@@ -27,6 +27,8 @@ Author: Yige Huang
 
 2. Completed version
 
+> Completed version
+
 18.08.2023 by yghuang (v3.0):
 
 1. Full constructed cumulant calculation system
