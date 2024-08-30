@@ -48,7 +48,7 @@ void CentManager::Init(const char* cent_edge) {
     fInNpart.close();
 }
 
-int GetCent(int m){
+int CentManager::GetCent(int m){
     for (int i=0; i<nCent; i++){
         if (m >= mult[i]){ return i; }
     }

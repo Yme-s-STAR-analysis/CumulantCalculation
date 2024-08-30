@@ -54,11 +54,11 @@ int main(int argc, char** argv){
 
     std::cout << "[LOG] No-CBWC results done, please check " << Form("cum.raw.%s.root", argv[1]) << ".\n";
     std::cout << "[LOG] Reading non-cbwc cumulant file...\n";
-    const int nCent = 9;
     TFile* tfin = new TFile(Form("cum.raw.%s.root", argv[1]));
     CentManager* cDef = new CentManager();
     cDef->Init(argv[2]); 
     int* nPart = cDef->GetArray();
+    const int nCent = CentManager::nCent;
     Rew8Tool* rew8 = new Rew8Tool();
     rew8->ReadPars(argv[3], 0); // the index is designed for multi-reweight cases, so any integer is okay here
 

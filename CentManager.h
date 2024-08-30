@@ -8,12 +8,8 @@
 
 class CentManager {
 
-    private:
-        static const int nCent = 9;
-        int npart[nCent];
-        int mult[nCent];
-
     public:
+        static constexpr int nCent = 9;
         CentManager(){
             for (int i=0; i<nCent; i++) { 
                 mult[i] = 0; 
@@ -25,6 +21,11 @@ class CentManager {
         void Init(const char* cent_edge);
         int* GetArray() { return npart; }
         int GetCent(int m);
+        
+    private:
+        int npart[nCent];
+        int mult[nCent];
+
 };
 
 #endif
