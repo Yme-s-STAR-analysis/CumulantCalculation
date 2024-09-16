@@ -1,6 +1,6 @@
 # Cumulant Calculation
 
-Version: 6.0
+Version: 6.1
 
 Author: Yige Huang
 
@@ -11,6 +11,11 @@ Author: Yige Huang
 2. `./runCumulant mTerms cent_edge.txt w8.txt`
 
 ## Patch Note
+
+16.09.2024 by yghuang (v6.1):
+
+1. Add a efficient version that only deals utmost 4th order
+    * The mTerms should come from corresponding GetTerms of utmost 4th order version as well
 
 30.08.2024 by yghuang (v6.0):
 
