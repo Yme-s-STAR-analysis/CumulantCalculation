@@ -31,7 +31,7 @@ int main(int argc, char** argv){
     // No CBWC
     std::cout << "[LOG] Now calculting No-CBWC results.\n";
     const int MaxMult = 1000;
-    const int LowEventCut = 10; // to avoid error caused by low event number
+    const int LowEventCut = 30; // to avoid error caused by low event number
 
     std::cout << "[LOG] Initializing cumulant calculating utils.\n";
     ECorr* ecp = new ECorr("Pro", MaxMult, LowEventCut); 
