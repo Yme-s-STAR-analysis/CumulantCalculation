@@ -15,6 +15,7 @@ Author: Yige Huang
 03.10.2024 by yghuang (v6.2):
 
 1. Fix a fatal bug: the error for kappa calculation was incorrect for forth order case
+    * The bin entries was not divided correctly, and only the errors of kappa are affected, the ratios were normal
 
 16.09.2024 by yghuang (v6.1):
 
