@@ -1,6 +1,6 @@
 # Cumulant Calculation
 
-Version: 6.1
+Version: 6.2
 
 Author: Yige Huang
 
@@ -11,6 +11,10 @@ Author: Yige Huang
 2. `./runCumulant mTerms cent_edge.txt w8.txt`
 
 ## Patch Note
+
+03.10.2024 by yghuang (v6.2):
+
+1. Fix a fatal bug: the error for kappa calculation was incorrect for forth order case
 
 16.09.2024 by yghuang (v6.1):
 
