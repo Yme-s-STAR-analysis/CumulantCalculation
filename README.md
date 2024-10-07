@@ -1,6 +1,6 @@
 # Cumulant Calculation
 
-Version: 6.2
+Version: 7.0
 
 Author: Yige Huang
 
@@ -11,6 +11,17 @@ Author: Yige Huang
 2. `./runCumulant mTerms cent_edge.txt w8.txt`
 
 ## Patch Note
+
+07.10.2024 by yghuang (v7.0):
+
+1. For CBWC on ratios, there are 2 methods:
+    1. Directly apply CBWC on ratios
+    2. Take ratios on CBWCorrected cumulants
+
+    * Both of them are calculated and stored now
+    * Note that, previous R42 (with method2) is now named as R42r, and the new R42 comes from method1
+
+2. Some cosmetic updates on codes
 
 03.10.2024 by yghuang (v6.2):
 
