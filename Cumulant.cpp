@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
     for (int i=0; i<nType; i++) {
         for (int j=0; j<nCums; j++) {
             if (i == 2) { // skip kappa for net proton
-                if ((j > = 15 && j <= 25) || j >= 34) { continue; } 
+                if ((j >= 15 && j <= 25) || j >= 34) { continue; } 
             } else { // skip ppb for proton and antiproton
                 if (j == 1 || j == 8 || j == 11 || j == 27 || j == 30) { continue; }
             }
@@ -134,7 +134,7 @@ int main(int argc, char** argv) {
     for (int i=0; i<nType; i++) { // i for proton types
         for (int j=0; j<nCums; j++) { // j for cumulant orders
             if (i == 2) { // skip kappa for net proton
-                if ((j > = 15 && j <= 25) || j >= 34) { continue; } 
+                if ((j >= 15 && j <= 25) || j >= 34) { continue; } 
             } else { // skip ppb for proton and antiproton
                 if (j == 1 || j == 8 || j == 11 || j == 27 || j == 30) { continue; }
             }
@@ -167,7 +167,7 @@ int main(int argc, char** argv) {
             for (int k=0; k<nCent; k++) {
                 // calculate values
                 if (i == 2) { // skip kappa for net proton
-                    if ((j > = 15 && j <= 25) || j >= 34) { continue; } 
+                    if ((j >= 15 && j <= 25) || j >= 34) { continue; } 
                 } else { // skip ppb for proton and antiproton
                     if (j == 1 || j == 8 || j == 11 || j == 27 || j == 30) { continue; }
                 }
@@ -207,7 +207,7 @@ int main(int argc, char** argv) {
     for (int i=0; i<nType; i++) {
         for (int j=0; j<nCums; j++) {
             if (i == 2) { // skip kappa for net proton
-                if ((j > = 15 && j <= 25) || j >= 34) { continue; } 
+                if ((j >= 15 && j <= 25) || j >= 34) { continue; } 
             } else { // skip ppb for proton and antiproton
                 if (j == 1 || j == 8 || j == 11 || j == 27 || j == 30) { continue; }
             }
