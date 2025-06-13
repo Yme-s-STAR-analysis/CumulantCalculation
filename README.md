@@ -1,6 +1,6 @@
 # Cumulant Calculation
 
-Version: 7.0
+Version: 7.1
 
 Author: Yige Huang
 
@@ -11,6 +11,11 @@ Author: Yige Huang
 2. `./runCumulant mTerms cent_edge.txt w8.txt`
 
 ## Patch Note
+
+13.06.2025 by yghuang (v7.1):
+
+1. Support homogeneous factorail cumulant check, which only calculate proton and antiproton factorial cumulant, and normalized by k1 or k1 to nth power
+    * Note that, in order to function this, HOMO3 option must turn on in GetTerms
 
 07.10.2024 by yghuang (v7.0):
 
