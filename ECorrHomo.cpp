@@ -102,9 +102,9 @@ void ECorr::Calculate() {
 
 		_sk1->SetBinContent(iBin, NonNan(tc1));
 		_sk1->SetBinError(iBin, NonNan(ek1));
-		_sk2->SetBinContent(iBin, NonNan(tc2));
+		_sk2->SetBinContent(iBin, NonNan(tk2));
 		_sk2->SetBinError(iBin, NonNan(ek2));
-		_sk3->SetBinContent(iBin, NonNan(tc3));
+		_sk3->SetBinContent(iBin, NonNan(tk3));
 		_sk3->SetBinError(iBin, NonNan(ek3));
 
 		if (tk1 != 0) {
