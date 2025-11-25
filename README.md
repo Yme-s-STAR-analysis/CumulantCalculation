@@ -1,6 +1,6 @@
 # Cumulant Calculation
 
-Version: 7.1
+Version: Homogenous 8.0
 
 Author: Yige Huang
 
@@ -11,6 +11,16 @@ Author: Yige Huang
 2. `./runCumulant mTerms cent_edge.txt w8.txt`
 
 ## Patch Note
+
+25.11.2025 by yghuang (homo8.0)：
+
+1. Fully support [GetTermsRsl homo8.0](https://github.com/Yme-s-STAR-analysis/GetTermsRsl.git);
+
+2. Main changes: 
+
+    1. Now we also save net-proton, rather than only proton/antiproton;
+
+    2. Now we also save cumulants (otherwise why do we save net-proton XD), rather than only FC.
 
 13.06.2025 by yghuang (v7.1):
 
