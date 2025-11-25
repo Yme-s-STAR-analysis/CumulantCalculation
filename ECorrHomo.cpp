@@ -34,19 +34,23 @@ ECorr::~ECorr() {}
 void ECorr::Init() {
 
   	hEntries = new TH1D(Form("%shEntries", ParticleType),";Mult;Counts", _nMultBin, -0.5, _nMultBin-0.5);
-	_sk1 = new TH1D(Form("%sk1" ,ParticleType),";Mult;#kappa_{1}", _nMultBin, -0.5, _nMultBin-0.5);
-	_sk2 = new TH1D(Form("%sk2" ,ParticleType),";Mult;#kappa_{2}", _nMultBin, -0.5, _nMultBin-0.5);
-	_sk3 = new TH1D(Form("%sk3" ,ParticleType),";Mult;#kappa_{3}", _nMultBin, -0.5, _nMultBin-0.5);
-	_sk21 = new TH1D(Form("%sk21" ,ParticleType),";Mult;#kappa_{2}/#kappa_{1}", _nMultBin, -0.5, _nMultBin-0.5);
-	_sk31 = new TH1D(Form("%sk31" ,ParticleType),";Mult;#kappa_{3}/#kappa_{1}", _nMultBin, -0.5, _nMultBin-0.5);
-	_sk2n = new TH1D(Form("%sk2n" ,ParticleType),";Mult;#kappa_{2}/#kappa_{1}^2", _nMultBin, -0.5, _nMultBin-0.5);
-	_sk3n = new TH1D(Form("%sk3n" ,ParticleType),";Mult;#kappa_{3}/#kappa_{1}^3", _nMultBin, -0.5, _nMultBin-0.5);
+	_sc1 = new TH1D(Form("%sC1" ,ParticleType),";Mult;C_{1}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sc2 = new TH1D(Form("%sC2" ,ParticleType),";Mult;C_{2}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sc3 = new TH1D(Form("%sC3" ,ParticleType),";Mult;C_{3}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sk1 = new TH1D(Form("%sk1" ,ParticleType),";Mult;FC_{1}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sk2 = new TH1D(Form("%sk2" ,ParticleType),";Mult;FC_{2}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sk3 = new TH1D(Form("%sk3" ,ParticleType),";Mult;FC_{3}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sk21 = new TH1D(Form("%sk21" ,ParticleType),";Mult;FC_{2}/FC_{1}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sk31 = new TH1D(Form("%sk31" ,ParticleType),";Mult;FC_{3}/FC_{1}", _nMultBin, -0.5, _nMultBin-0.5);
+	_sk2n = new TH1D(Form("%sk2n" ,ParticleType),";Mult;FC_{2}/FC_{1}^2", _nMultBin, -0.5, _nMultBin-0.5);
+	_sk3n = new TH1D(Form("%sk3n" ,ParticleType),";Mult;FC_{3}/FC_{1}^3", _nMultBin, -0.5, _nMultBin-0.5);
 
 }
 
 void ECorr::Calculate() {
 	Double_t tc1, tc2, tc3;
 	Double_t tk1, tk2, tk3;
+	Double_t ec1, ec2, ec3;
 	Double_t ek1, ek2, ek3;
 	Double_t ek21, ek31;
 	Double_t ek2n, ek3n;
@@ -68,6 +72,13 @@ void ECorr::Calculate() {
 			tc2 = -pow(v[39], 2) + v[53] + v[10] - v[51];
 		//==== Formula Tag: C3
 			tc3 = 2*pow(v[39], 3) - 3*v[39]*v[53] - 3*v[39]*v[10] + 3*v[39]*v[51] + v[6] + 3*v[21] - 3*v[41] + v[13] - 3*v[37] + 2*v[15];
+
+		//==== Formula Tag: C1 error
+			ec1 = -pow(v[39], 2) + v[53];
+		//==== Formula Tag: C2 error
+			ec2 = -4*pow(v[39], 4) + 8*pow(v[39], 2)*v[53] + 4*pow(v[39], 2)*v[10] - 4*pow(v[39], 2)*v[51] - 4*v[39]*v[6] - 4*v[39]*v[21] + 4*v[39]*v[41] - pow(v[53], 2) - 2*v[53]*v[10] + 2*v[53]*v[51] + 2*v[54] - 2*v[26] + v[23] - pow(v[10], 2) + 2*v[10]*v[51] + v[35] - 2*v[32] - pow(v[51], 2) + v[45];
+		//==== Formula Tag: C3 error
+			ec3 = -36*pow(v[39], 6) + 108*pow(v[39], 4)*v[53] + 72*pow(v[39], 4)*v[10] - 72*pow(v[39], 4)*v[51] - 48*pow(v[39], 3)*v[6] - 72*pow(v[39], 3)*v[21] + 72*pow(v[39], 3)*v[41] - 12*pow(v[39], 3)*v[13] + 36*pow(v[39], 3)*v[37] - 24*pow(v[39], 3)*v[15] - 72*pow(v[39], 2)*pow(v[53], 2) - 108*pow(v[39], 2)*v[53]*v[10] + 108*pow(v[39], 2)*v[53]*v[51] + 54*pow(v[39], 2)*v[54] - 54*pow(v[39], 2)*v[26] + 21*pow(v[39], 2)*v[23] + 12*pow(v[39], 2)*v[31] - 36*pow(v[39], 2)*v[30] + 24*pow(v[39], 2)*v[1] - 36*pow(v[39], 2)*pow(v[10], 2) + 72*pow(v[39], 2)*v[10]*v[51] + 9*pow(v[39], 2)*v[35] - 18*pow(v[39], 2)*v[32] - 36*pow(v[39], 2)*pow(v[51], 2) + 9*pow(v[39], 2)*v[45] + 30*v[39]*v[53]*v[6] + 54*v[39]*v[53]*v[21] - 54*v[39]*v[53]*v[41] + 12*v[39]*v[53]*v[13] - 36*v[39]*v[53]*v[37] + 24*v[39]*v[53]*v[15] - 6*v[39]*v[9] + 18*v[39]*v[18] - 12*v[39]*v[50] + 30*v[39]*v[6]*v[10] - 30*v[39]*v[6]*v[51] - 24*v[39]*v[40] + 24*v[39]*v[12] - 6*v[39]*v[27] + 54*v[39]*v[21]*v[10] - 54*v[39]*v[21]*v[51] - 18*v[39]*v[8] + 36*v[39]*v[36] - 54*v[39]*v[41]*v[10] + 54*v[39]*v[41]*v[51] - 18*v[39]*v[28] + 12*v[39]*v[10]*v[13] - 36*v[39]*v[10]*v[37] + 24*v[39]*v[10]*v[15] - 6*v[39]*v[4] + 18*v[39]*v[22] - 12*v[39]*v[17] - 12*v[39]*v[51]*v[13] + 36*v[39]*v[51]*v[37] - 24*v[39]*v[51]*v[15] + 6*v[39]*v[42] - 18*v[39]*v[11] + 12*v[39]*v[49] + 9*pow(v[53], 3) + 18*pow(v[53], 2)*v[10] - 18*pow(v[53], 2)*v[51] - 18*v[53]*v[54] + 18*v[53]*v[26] - 6*v[53]*v[23] - 6*v[53]*v[31] + 18*v[53]*v[30] - 12*v[53]*v[1] + 9*v[53]*pow(v[10], 2) - 18*v[53]*v[10]*v[51] + 9*v[53]*pow(v[51], 2) - 18*v[54]*v[10] + 18*v[54]*v[51] + 9*v[14] - 18*v[44] + 18*v[26]*v[10] - 18*v[26]*v[51] + 9*v[48] - pow(v[6], 2) - 6*v[6]*v[21] + 6*v[6]*v[41] - 2*v[6]*v[13] + 6*v[6]*v[37] - 4*v[6]*v[15] + 2*v[19] - 6*v[46] + 4*v[3] - 6*v[23]*v[10] + 6*v[23]*v[51] + 6*v[5] - 6*v[33] + v[7] - 9*pow(v[21], 2) + 18*v[21]*v[41] - 6*v[21]*v[13] + 18*v[21]*v[37] - 12*v[21]*v[15] + 6*v[55] - 18*v[24] + 12*v[43] - 9*pow(v[41], 2) + 6*v[41]*v[13] - 18*v[41]*v[37] + 12*v[41]*v[15] - 6*v[2] + 18*v[20] - 12*v[38] - 6*v[31]*v[10] + 6*v[31]*v[51] + 18*v[30]*v[10] - 18*v[30]*v[51] - 12*v[1]*v[10] + 12*v[1]*v[51] - pow(v[13], 2) + 6*v[13]*v[37] - 4*v[13]*v[15] + v[25] - 6*v[16] + 4*v[29] - 9*pow(v[37], 2) + 12*v[37]*v[15] + 9*v[52] - 12*v[47] - 4*pow(v[15], 2) + 4*v[34];
 
 		// Formula Tag: kappa
 		//==== Formula Tag: k1->k3
@@ -100,6 +111,12 @@ void ECorr::Calculate() {
 			ek2n = ek3n = 0;
 		}
 
+		_sc1->SetBinContent(iBin, NonNan(tc1));
+		_sc1->SetBinError(iBin, NonNan(ek1));
+		_sc2->SetBinContent(iBin, NonNan(tc2));
+		_sc2->SetBinError(iBin, NonNan(ec2));
+		_sc3->SetBinContent(iBin, NonNan(tc3));
+		_sc3->SetBinError(iBin, NonNan(ec3));
 		_sk1->SetBinContent(iBin, NonNan(tc1));
 		_sk1->SetBinError(iBin, NonNan(ek1));
 		_sk2->SetBinContent(iBin, NonNan(tk2));
@@ -141,6 +158,9 @@ void ECorr::Save(const char *OutName) {
 	TFile *out = new TFile(OutName, "recreate");
 	out->cd();
 
+	_sc1->Write();
+	_sc2->Write();
+	_sc3->Write();
 	_sk1->Write();
 	_sk2->Write();
 	_sk3->Write();
@@ -158,6 +178,9 @@ void ECorr::Update(const char* OutName) {
 	TFile *out = new TFile(OutName, "update");
 	out->cd();
 
+	_sc1->Write();
+	_sc2->Write();
+	_sc3->Write();
 	_sk1->Write();
 	_sk2->Write();
 	_sk3->Write();

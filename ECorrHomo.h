@@ -33,6 +33,9 @@ class ECorr {
 		//Attentation! bin center is integer multplicity value
 		//zero multiplicity bin is not stored
     	//e.g. _sC[1]->GetBinContent(5) -> get C1'bin value at mult == 5
+		TH1D* _sc1;
+		TH1D* _sc2;
+		TH1D* _sc3;
 		TH1D* _sk1;
 		TH1D* _sk2;
 		TH1D* _sk3;

@@ -30,12 +30,13 @@ int main(int argc, char** argv) {
 
     // No CBWC
     std::cout << "[LOG] Now calculting No-CBWC results.\n";
-    const int MaxMult = 1000;
+    const int MaxMult = 1250;
     const int LowEventCut = 30; // to avoid error caused by low event number
 
     std::cout << "[LOG] Initializing cumulant calculating utils.\n";
     ECorr* ecp = new ECorr("Pro", MaxMult, LowEventCut); 
     ECorr* eca = new ECorr("Pbar", MaxMult, LowEventCut); 
+    ECorr* ecn = new ECorr("Netp", MaxMult, LowEventCut); 
     ecp->Init();
     ecp->ReadTerms(Form("%s.root", argv[1]));
     ecp->Calculate();
@@ -46,6 +47,11 @@ int main(int argc, char** argv) {
     eca->Calculate();
     eca->Update(Form("cum.raw.%s.root", argv[1]));
     std::cout << "[LOG] Antiproton done.\n";
+    ecn->Init();
+    ecn->ReadTerms(Form("%s.root", argv[1]));
+    ecn->Calculate();
+    ecn->Update(Form("cum.raw.%s.root", argv[1]));
+    std::cout << "[LOG] Net-proton done.\n";
 
     std::cout << "[LOG] No-CBWC results done, please check " << Form("cum.raw.%s.root", argv[1]) << ".\n";
     std::cout << "[LOG] Reading non-cbwc cumulant file...\n";
@@ -59,23 +65,27 @@ int main(int argc, char** argv) {
 
     std::cout << "[LOG] Initializing graphes.\n";
     // only 18 cumulants for utmost 4th order
-    const int nCums = 7; // k2n and k3n
-    const int nType = 2; // type for proton type
-    const char* typeNames[nType] = {"Pro", "Pbar"};
+    const int nCums = 10; // k2n and k3n
+    const int nType = 3; // type for proton type
+    const char* typeNames[nType] = {"Pro", "Pbar", "Netp"};
     TGraphErrors* tgs[nType][nCums];
     TH1D* sCums[nType][nCums];
     const char* cumNames[nCums] = {
         // directly apply CBWC on those quantities
-        "k1", "k2", "k3", "k21", "k31", "k2n", "k3n"
+        "C1", "C2", "C3",
+        "k1", "k2", "k3", 
+        "k21", "k31", "k2n", "k3n"
     };
     const char* cumTitles[nCums] = {
-        "#kappa_{1}", "#kappa_{2}", "#kappa_{3}",
-        "#kappa_{2}/#kappa_{1}", "#kappa_{3}/#kappa_{1}",
-        "#kappa_{2}/#kappa_{1}^2", "#kappa_{3}/#kappa_{1}^3"
+        "C_{1}", "C_{2}", "C_{3}",
+        "FC_{1}", "FC_{2}", "FC_{3}",
+        "FC_{2}/FC_{1}", "FC_{3}/FC_{1}",
+        "FC_{2}/FC_{1}^{2}", "FC_{3}/FC_{1}^{3}"
     };
 
     for (int i=0; i<nType; i++) {
         for (int j=0; j<nCums; j++) {
+            if (i == 2 && j >= 3) { continue; } // skip kappa for net proton
             tfin->GetObject(
                 Form("%s%s", typeNames[i], cumNames[j]), 
                 sCums[i][j]
@@ -102,6 +112,7 @@ int main(int argc, char** argv) {
 
     for (int i=0; i<nType; i++) { // i for proton types
         for (int j=0; j<nCums; j++) { // j for cumulant orders
+            if (i == 2 && j >= 3) { continue; } // skip kappa for net proton
             // loop 1, initialize the arrays to carry values and errors
             double nEvents = 0;
             for (int k=0; k<nCent; k++) { // k for centralities
@@ -140,6 +151,7 @@ int main(int argc, char** argv) {
     tfout->cd();
     for (int i=0; i<nType; i++) {
         for (int j=0; j<nCums; j++) {
+            if (i == 2 && j >= 3) { continue; } // skip kappa for net proton
             tgs[i][j]->Write();
         }
     }
